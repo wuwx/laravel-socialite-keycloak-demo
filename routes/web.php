@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('keycloak')
+        ->scopes(['offline_access'])
+        ->redirect();
+});
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('keycloak')
+        ->user();
+});
